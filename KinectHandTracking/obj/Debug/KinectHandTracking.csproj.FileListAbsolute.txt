@@ -1,0 +1,16 @@
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\bin\Debug\KinectHandTracking.exe.config
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\bin\Debug\KinectHandTracking.exe
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\bin\Debug\KinectHandTracking.pdb
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\bin\Debug\Microsoft.Kinect.dll
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\bin\Debug\Microsoft.Kinect.xml
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\obj\Debug\KinectHandTracking.csprojResolveAssemblyReference.cache
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\obj\Debug\MainWindow.baml
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\obj\Debug\App.baml
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\obj\Debug\MainWindow.g.cs
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\obj\Debug\App.g.cs
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\obj\Debug\KinectHandTracking_MarkupCompile.cache
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\obj\Debug\KinectHandTracking.g.resources
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\obj\Debug\KinectHandTracking.Properties.Resources.resources
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\obj\Debug\KinectHandTracking.csproj.GenerateResource.Cache
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\obj\Debug\KinectHandTracking.exe
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\obj\Debug\KinectHandTracking.pdb
