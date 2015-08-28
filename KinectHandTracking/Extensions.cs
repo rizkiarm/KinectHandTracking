@@ -1,4 +1,5 @@
 ﻿using Microsoft.Kinect;
+using Microsoft.Kinect.Face;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -237,6 +238,57 @@ namespace KinectHandTracking
 
         #endregion
 
+
+        #region Face
+        
+        public static void DrawPointF(this Canvas canvas, PointF pointf, CoordinateMapper mapper, Color color, int width = 20, int height = 20)
+        {
+            Ellipse ellipse = new Ellipse
+            {
+                Width = width,
+                Height = height,
+                Fill = new SolidColorBrush(color)
+            };
+
+            Canvas.SetLeft(ellipse, pointf.X - ellipse.Width / 2);
+            Canvas.SetTop(ellipse, pointf.Y - ellipse.Height / 2);
+
+            canvas.Children.Add(ellipse);
+        }
+
+        public static void DrawRectl(this Canvas canvas, RectI? rectl, Color color, int strokeThickness = 5)
+        {
+            Rectangle rectangle = new Rectangle
+            {
+                Width = rectl.Value.Right - rectl.Value.Left,
+                Height = rectl.Value.Bottom - rectl.Value.Top,
+                StrokeThickness = strokeThickness,
+                Stroke = new SolidColorBrush(color)
+            };
+
+            Canvas.SetLeft(rectangle, rectl.Value.Left);
+            Canvas.SetTop(rectangle, rectl.Value.Top);
+
+            canvas.Children.Add(rectangle);
+        }
+
+        public static void DrawText(this Canvas canvas, string text, Color color, int left, int top, int FontSize = 12)
+        {
+            TextBlock textblock = new TextBlock();
+
+            textblock.Text = text;
+            textblock.FontSize = FontSize;
+            textblock.Foreground = new SolidColorBrush(color);
+
+            Canvas.SetLeft(textblock, left);
+            Canvas.SetTop(textblock, top);
+
+            canvas.Children.Add(textblock);
+        }
+
+        #endregion
+
+
         #region Outside World
 
         // Last state:
@@ -249,7 +301,7 @@ namespace KinectHandTracking
         public static float lastHandDistance = 0.0f;
         public static bool isHandDistanceActive = false;
 
-        public static void AffectOutsideWorld(this Body body, CoordinateMapper mapper)
+        public static void AffectOutsideWorld(this Body body, FaceFrameResult face, CoordinateMapper mapper)
         {
             Joint handRight = body.Joints[JointType.HandRight];
             Joint handLeft = body.Joints[JointType.HandLeft];

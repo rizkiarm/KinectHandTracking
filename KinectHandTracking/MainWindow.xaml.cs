@@ -1,4 +1,5 @@
 ﻿using Microsoft.Kinect;
+using Microsoft.Kinect.Face;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -69,6 +70,7 @@ namespace KinectHandTracking
         public long lastTimeRendered;
         public const int CAMERA_FRAMERATE = 30;
         public Dictionary<ulong, Color> bodyColor = new Dictionary<ulong, Color>();
+        public Dictionary<ulong, FacialState> facialState = new Dictionary<ulong, FacialState>();
 
         void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
         {
@@ -82,7 +84,7 @@ namespace KinectHandTracking
                     if (showColorCamera.IsChecked.Value)
                     {
                         long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
-                        if(milliseconds - lastTimeRendered > 1000/CAMERA_FRAMERATE)
+                        if (milliseconds - lastTimeRendered > 1000 / CAMERA_FRAMERATE)
                         {
                             camera.Source = frame.ToBitmap();
                             lastTimeRendered = milliseconds;
@@ -117,6 +119,73 @@ namespace KinectHandTracking
 
                     foreach (var body in trackedBodies)
                     {
+                        // Decide Body Color
+                        if (!bodyColor.ContainsKey(body.TrackingId)) bodyColor[body.TrackingId] = Extensions.getRandomColor();
+                        Color currentBodyColor = bodyColor[body.TrackingId];
+
+                        // Process Facial Data if Enabled
+                        FaceFrameResult face = null;
+                        if (processFacialData.IsChecked.Value)
+                        {
+                            // Facial state handler
+                            if (!facialState.ContainsKey(body.TrackingId))
+                            {
+                                facialState[body.TrackingId] = new FacialState(_sensor, body.TrackingId, OnTrackingIdLost);
+                            }
+
+                            // Process Facial State
+                            using (var faceFrame = facialState[body.TrackingId].Reader.AcquireLatestFrame())
+                            {
+                                if ((faceFrame != null) && (faceFrame.FaceFrameResult != null))
+                                {
+                                    face = faceFrame.FaceFrameResult;
+
+                                    // FacePointsInColorSpace
+                                    RectI? facePosition = face.FaceBoundingBoxInColorSpace;
+                                    PointF eyeLeftPointF = face.FacePointsInColorSpace[FacePointType.EyeLeft];
+                                    PointF eyeRightPointF = face.FacePointsInColorSpace[FacePointType.EyeRight];
+                                    PointF nosePointF = face.FacePointsInColorSpace[FacePointType.Nose];
+                                    PointF mouthLeftPointF = face.FacePointsInColorSpace[FacePointType.MouthCornerLeft];
+                                    PointF mouthRightPointF = face.FacePointsInColorSpace[FacePointType.MouthCornerRight];
+
+                                    // Draw Face Point
+                                    if (drawFacePoint.IsChecked.Value)
+                                    {
+                                        foreach (var item in face.FacePointsInColorSpace.Keys)
+                                        {
+                                            canvas.DrawPointF(face.FacePointsInColorSpace[item], _sensor.CoordinateMapper, currentBodyColor, 12, 12);
+                                        }
+                                    }
+
+                                    // FaceProperty
+                                    DetectionResult engaged = face.FaceProperties[FaceProperty.Engaged];
+                                    DetectionResult happy = face.FaceProperties[FaceProperty.Happy];
+                                    DetectionResult leftEyeClosed = face.FaceProperties[FaceProperty.LeftEyeClosed];
+                                    DetectionResult lookingAway = face.FaceProperties[FaceProperty.LookingAway];
+                                    DetectionResult mouthMoved = face.FaceProperties[FaceProperty.MouthMoved];
+                                    DetectionResult mouthOpen = face.FaceProperties[FaceProperty.MouthOpen];
+                                    DetectionResult rightEyeClosed = face.FaceProperties[FaceProperty.RightEyeClosed];
+                                    DetectionResult wearingGlasses = face.FaceProperties[FaceProperty.WearingGlasses];
+
+                                    // Show Face Property
+                                    if (showFaceProperty.IsChecked.Value)
+                                    {
+                                        canvas.DrawRectl(facePosition, currentBodyColor);
+                                        canvas.DrawText(
+                                            "Engaged: "+ engaged.ToString()+"\n"+
+                                            "Happy: " + happy.ToString()+ "\n" +
+                                            "Left eye closed: " + leftEyeClosed.ToString() + "\n" +
+                                            "Right eye closed:" + rightEyeClosed.ToString() +"\n"+
+                                            "Looking away: " + lookingAway.ToString() + "\n" +
+                                            "Mouth open: " + mouthOpen.ToString() + "\n" +
+                                            "Wearing glasses: " + wearingGlasses.ToString(), 
+                                            Colors.White, facePosition.Value.Right + 30, facePosition.Value.Top, 20
+                                            );
+                                    }
+                                }
+                            }
+                        }
+
                         // Find the joints
                         Joint handRight = body.Joints[JointType.HandRight];
                         Joint thumbRight = body.Joints[JointType.ThumbRight];
@@ -140,13 +209,12 @@ namespace KinectHandTracking
                         canvas.DrawThumb(thumbLeft, _sensor.CoordinateMapper, handLeftColor);
 
                         // Draw skeleton
-                        if (!bodyColor.ContainsKey(body.TrackingId)) bodyColor[body.TrackingId] = Extensions.getRandomColor();
-                        if (showSkeleton.IsChecked.Value) canvas.DrawSkeleton(body, _sensor.CoordinateMapper, bodyColor[body.TrackingId]);
+                        if (showSkeleton.IsChecked.Value) canvas.DrawSkeleton(body, _sensor.CoordinateMapper, currentBodyColor);
 
                         // Draw body index
 
                         // Affect cursor
-                        if (nearestBody == body && enableControl.IsChecked.Value) body.AffectOutsideWorld(_sensor.CoordinateMapper);
+                        if (nearestBody == body && enableControl.IsChecked.Value) body.AffectOutsideWorld(face, _sensor.CoordinateMapper);
 
                         // Find the hand states
                         string rightHandState = "-";
@@ -201,12 +269,21 @@ namespace KinectHandTracking
                         Point leftHandPosition = handLeft.Scale(_sensor.CoordinateMapper);
 
                         tblRightHandPosition.Text = Math.Floor(rightHandPosition.X).ToString() + ", " + Math.Floor(rightHandPosition.Y).ToString();
-                        tblLeftHandPosition.Text = Math.Floor(leftHandPosition.X).ToString() +", "+ Math.Floor(leftHandPosition.Y).ToString();
+                        tblLeftHandPosition.Text = Math.Floor(leftHandPosition.X).ToString() + ", " + Math.Floor(leftHandPosition.Y).ToString();
 
                         tblHandDistance.Text = Math.Floor((rightHandPosition.X - leftHandPosition.X)).ToString() + ", " + Math.Floor((rightHandPosition.Y - leftHandPosition.Y)).ToString();
                         tblHandBothStatus.Text = body.HandLeftState == HandState.Closed && body.HandRightState == HandState.Closed ? "Wheel" : "None";
                     }
                 }
+            }
+        }
+
+        void OnTrackingIdLost(object sender, TrackingIdLostEventArgs args)
+        {
+            if (this.facialState.ContainsKey(args.TrackingId))
+            {
+                this.facialState[args.TrackingId].Reader.Dispose();
+                this.facialState.Remove(args.TrackingId);
             }
         }
 

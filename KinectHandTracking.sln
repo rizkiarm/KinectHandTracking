@@ -1,20 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinectHandTracking", "KinectHandTracking\KinectHandTracking.csproj", "{FABBE412-AAE6-4EDB-9AF6-4DC16F9BD08D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FABBE412-AAE6-4EDB-9AF6-4DC16F9BD08D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FABBE412-AAE6-4EDB-9AF6-4DC16F9BD08D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FABBE412-AAE6-4EDB-9AF6-4DC16F9BD08D}.Debug|x64.ActiveCfg = Debug|x64
+		{FABBE412-AAE6-4EDB-9AF6-4DC16F9BD08D}.Debug|x64.Build.0 = Debug|x64
 		{FABBE412-AAE6-4EDB-9AF6-4DC16F9BD08D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FABBE412-AAE6-4EDB-9AF6-4DC16F9BD08D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FABBE412-AAE6-4EDB-9AF6-4DC16F9BD08D}.Release|x64.ActiveCfg = Release|x64
+		{FABBE412-AAE6-4EDB-9AF6-4DC16F9BD08D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
