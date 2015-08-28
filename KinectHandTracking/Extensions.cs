@@ -121,42 +121,42 @@ namespace KinectHandTracking
 
         #region Drawing
 
-        public static void DrawSkeleton(this Canvas canvas, Body body, CoordinateMapper mapper)
+        public static void DrawSkeleton(this Canvas canvas, Body body, CoordinateMapper mapper, Color color)
         {
             if (body == null) return;
 
             foreach (Joint joint in body.Joints.Values)
             {
-                canvas.DrawPoint(joint, mapper);
+                canvas.DrawPoint(joint, mapper, color);
             }
 
-            canvas.DrawLine(body.Joints[JointType.Head], body.Joints[JointType.Neck], mapper);
-            canvas.DrawLine(body.Joints[JointType.Neck], body.Joints[JointType.SpineShoulder], mapper);
-            canvas.DrawLine(body.Joints[JointType.SpineShoulder], body.Joints[JointType.ShoulderLeft], mapper);
-            canvas.DrawLine(body.Joints[JointType.SpineShoulder], body.Joints[JointType.ShoulderRight], mapper);
-            canvas.DrawLine(body.Joints[JointType.SpineShoulder], body.Joints[JointType.SpineMid], mapper);
-            canvas.DrawLine(body.Joints[JointType.ShoulderLeft], body.Joints[JointType.ElbowLeft], mapper);
-            canvas.DrawLine(body.Joints[JointType.ShoulderRight], body.Joints[JointType.ElbowRight], mapper);
-            canvas.DrawLine(body.Joints[JointType.ElbowLeft], body.Joints[JointType.WristLeft], mapper);
-            canvas.DrawLine(body.Joints[JointType.ElbowRight], body.Joints[JointType.WristRight], mapper);
-            canvas.DrawLine(body.Joints[JointType.WristLeft], body.Joints[JointType.HandLeft], mapper);
-            canvas.DrawLine(body.Joints[JointType.WristRight], body.Joints[JointType.HandRight], mapper);
-            canvas.DrawLine(body.Joints[JointType.HandLeft], body.Joints[JointType.HandTipLeft], mapper);
-            canvas.DrawLine(body.Joints[JointType.HandRight], body.Joints[JointType.HandTipRight], mapper);
-            canvas.DrawLine(body.Joints[JointType.HandTipLeft], body.Joints[JointType.ThumbLeft], mapper);
-            canvas.DrawLine(body.Joints[JointType.HandTipRight], body.Joints[JointType.ThumbRight], mapper);
-            canvas.DrawLine(body.Joints[JointType.SpineMid], body.Joints[JointType.SpineBase], mapper);
-            canvas.DrawLine(body.Joints[JointType.SpineBase], body.Joints[JointType.HipLeft], mapper);
-            canvas.DrawLine(body.Joints[JointType.SpineBase], body.Joints[JointType.HipRight], mapper);
-            canvas.DrawLine(body.Joints[JointType.HipLeft], body.Joints[JointType.KneeLeft], mapper);
-            canvas.DrawLine(body.Joints[JointType.HipRight], body.Joints[JointType.KneeRight], mapper);
-            canvas.DrawLine(body.Joints[JointType.KneeLeft], body.Joints[JointType.AnkleLeft], mapper);
-            canvas.DrawLine(body.Joints[JointType.KneeRight], body.Joints[JointType.AnkleRight], mapper);
-            canvas.DrawLine(body.Joints[JointType.AnkleLeft], body.Joints[JointType.FootLeft], mapper);
-            canvas.DrawLine(body.Joints[JointType.AnkleRight], body.Joints[JointType.FootRight], mapper);
+            if (body.Joints[JointType.Neck].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.Head], body.Joints[JointType.Neck], mapper, color);
+            if (body.Joints[JointType.SpineShoulder].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.Neck], body.Joints[JointType.SpineShoulder], mapper, color);
+            if (body.Joints[JointType.ShoulderLeft].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.SpineShoulder], body.Joints[JointType.ShoulderLeft], mapper, color);
+            if (body.Joints[JointType.ShoulderRight].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.SpineShoulder], body.Joints[JointType.ShoulderRight], mapper, color);
+            if (body.Joints[JointType.SpineMid].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.SpineShoulder], body.Joints[JointType.SpineMid], mapper, color);
+            if (body.Joints[JointType.ElbowLeft].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.ShoulderLeft], body.Joints[JointType.ElbowLeft], mapper, color);
+            if (body.Joints[JointType.ElbowRight].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.ShoulderRight], body.Joints[JointType.ElbowRight], mapper, color);
+            if (body.Joints[JointType.WristLeft].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.ElbowLeft], body.Joints[JointType.WristLeft], mapper, color);
+            if (body.Joints[JointType.WristRight].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.ElbowRight], body.Joints[JointType.WristRight], mapper, color);
+            if (body.Joints[JointType.HandLeft].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.WristLeft], body.Joints[JointType.HandLeft], mapper, color);
+            if (body.Joints[JointType.HandRight].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.WristRight], body.Joints[JointType.HandRight], mapper, color);
+            if (body.Joints[JointType.HandTipLeft].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.HandLeft], body.Joints[JointType.HandTipLeft], mapper, color);
+            if (body.Joints[JointType.HandTipRight].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.HandRight], body.Joints[JointType.HandTipRight], mapper, color);
+            if (body.Joints[JointType.ThumbLeft].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.WristLeft], body.Joints[JointType.ThumbLeft], mapper, color);
+            if (body.Joints[JointType.ThumbRight].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.WristRight], body.Joints[JointType.ThumbRight], mapper, color);
+            if (body.Joints[JointType.SpineBase].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.SpineMid], body.Joints[JointType.SpineBase], mapper, color);
+            if (body.Joints[JointType.HipLeft].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.SpineBase], body.Joints[JointType.HipLeft], mapper, color);
+            if (body.Joints[JointType.HipRight].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.SpineBase], body.Joints[JointType.HipRight], mapper, color);
+            if (body.Joints[JointType.KneeLeft].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.HipLeft], body.Joints[JointType.KneeLeft], mapper, color);
+            if (body.Joints[JointType.KneeRight].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.HipRight], body.Joints[JointType.KneeRight], mapper, color);
+            if (body.Joints[JointType.AnkleLeft].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.KneeLeft], body.Joints[JointType.AnkleLeft], mapper, color);
+            if (body.Joints[JointType.AnkleRight].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.KneeRight], body.Joints[JointType.AnkleRight], mapper, color);
+            if (body.Joints[JointType.FootLeft].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.AnkleLeft], body.Joints[JointType.FootLeft], mapper, color);
+            if (body.Joints[JointType.FootRight].TrackingState != TrackingState.Inferred) canvas.DrawLine(body.Joints[JointType.AnkleRight], body.Joints[JointType.FootRight], mapper, color);
         }
 
-        public static void DrawPoint(this Canvas canvas, Joint joint, CoordinateMapper mapper)
+        public static void DrawPoint(this Canvas canvas, Joint joint, CoordinateMapper mapper, Color color)
         {
             if (joint.TrackingState == TrackingState.NotTracked) return;
 
@@ -166,7 +166,7 @@ namespace KinectHandTracking
             {
                 Width = 20,
                 Height = 20,
-                Fill = new SolidColorBrush(Colors.LightBlue)
+                Fill = new SolidColorBrush(color)
             };
 
             Canvas.SetLeft(ellipse, point.X - ellipse.Width / 2);
@@ -215,7 +215,7 @@ namespace KinectHandTracking
             canvas.Children.Add(ellipse);
         }
 
-        public static void DrawLine(this Canvas canvas, Joint first, Joint second, CoordinateMapper mapper)
+        public static void DrawLine(this Canvas canvas, Joint first, Joint second, CoordinateMapper mapper, Color color)
         {
             if (first.TrackingState == TrackingState.NotTracked || second.TrackingState == TrackingState.NotTracked) return;
 
@@ -229,7 +229,7 @@ namespace KinectHandTracking
                 X2 = secondPoint.X,
                 Y2 = secondPoint.Y,
                 StrokeThickness = 8,
-                Stroke = new SolidColorBrush(Colors.LightBlue)
+                Stroke = new SolidColorBrush(color)
             };
 
             canvas.Children.Add(line);
@@ -244,6 +244,10 @@ namespace KinectHandTracking
         // 1 = Left down
         // 2 = Right down
         public static int lastState = 0;
+
+        // Last right hand and left hand distance
+        public static float lastHandDistance = 0.0f;
+        public static bool isHandDistanceActive = false;
 
         public static void AffectOutsideWorld(this Body body, CoordinateMapper mapper)
         {
@@ -265,14 +269,30 @@ namespace KinectHandTracking
             // Special state
             if(body.HandRightState == HandState.Closed && body.HandLeftState == HandState.Closed)
             {
-                Point distance = new Point();
-                distance.X = handRight.Scale(mapper).X - handLeft.Scale(mapper).X;
-                distance.Y = handRight.Scale(mapper).Y - handLeft.Scale(mapper).Y;
+                float distance = handRight.Scale(mapper).Distance(handLeft.Scale(mapper));
 
-                VirtualMouse.WheelTo((int) distance.Y);
+                if (!isHandDistanceActive)
+                {
+                    lastHandDistance = distance;
+                    isHandDistanceActive = true;
+                }
+
+                VirtualMouse.WheelTo((int) (distance - lastHandDistance));
+
+                lastHandDistance = distance;
+
+                // OLD METHOD
+                //Point distance = new Point();
+                //distance.X = handRight.Scale(mapper).X - handLeft.Scale(mapper).X;
+                //distance.Y = handRight.Scale(mapper).Y - handLeft.Scale(mapper).Y;
+
+                //VirtualMouse.WheelTo((int) distance.Y);
             }
             else
             {
+                // Disable hand distance
+                if (isHandDistanceActive) isHandDistanceActive = false;
+
                 // Common state
                 switch (handState)
                 {
@@ -323,6 +343,25 @@ namespace KinectHandTracking
         public static float Remap(float value, float from1, float to1, float from2, float to2)
         {
             return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+        }
+
+        public static float Distance(this Point pointA, Point pointB)
+        {
+            float x1 = (float) pointA.X;
+            float x2 = (float) pointB.X;
+            float y1 = (float) pointA.Y;
+            float y2 = (float) pointB.Y;
+
+            return (float) Math.Sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+        }
+
+        public static Color getRandomColor()
+        {
+            Random r = new Random();
+            byte red = (byte) r.Next(0, byte.MaxValue + 1);
+            byte green = (byte) r.Next(0, byte.MaxValue + 1);
+            byte blue = (byte) r.Next(0, byte.MaxValue + 1);
+            return Color.FromArgb(255,red,green,blue);
         }
 
         #endregion

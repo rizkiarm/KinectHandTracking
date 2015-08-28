@@ -14,3 +14,5 @@ D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandT
 D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\obj\Debug\KinectHandTracking.csproj.GenerateResource.Cache
 D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\obj\Debug\KinectHandTracking.exe
 D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\obj\Debug\KinectHandTracking.pdb
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\bin\Debug\Microsoft.Kinect.Face.dll
+D:\PROJECT\ORGANIZATION\Compfest\IT Development 7\KinectHandTracking\KinectHandTracking\bin\Debug\Microsoft.Kinect.Face.xml
