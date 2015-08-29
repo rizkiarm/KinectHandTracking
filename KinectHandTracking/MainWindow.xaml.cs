@@ -179,7 +179,7 @@ namespace KinectHandTracking
                                             "Looking away: " + lookingAway.ToString() + "\n" +
                                             "Mouth open: " + mouthOpen.ToString() + "\n" +
                                             "Wearing glasses: " + wearingGlasses.ToString(), 
-                                            Colors.White, facePosition.Value.Right + 30, facePosition.Value.Top, 20
+                                            TextAlignment.Left, Colors.White, Colors.Black, 20, facePosition.Value.Right + 30, null, facePosition.Value.Top
                                             );
                                     }
                                 }
@@ -215,6 +215,9 @@ namespace KinectHandTracking
 
                         // Affect cursor
                         if (nearestBody == body && enableControl.IsChecked.Value) body.AffectOutsideWorld(face, _sensor.CoordinateMapper);
+
+                        // Draw player
+                        if (nearestBody == body) canvas.DrawText("ACTIVE", TextAlignment.Left, Colors.White, Colors.Green, 30, (int)Math.Floor(body.Joints[JointType.Head].Scale(_sensor.CoordinateMapper).X) - 60, null, (int)Math.Floor(body.Joints[JointType.Head].Scale(_sensor.CoordinateMapper).Y) - 150);
 
                         // Find the hand states
                         string rightHandState = "-";
@@ -262,17 +265,16 @@ namespace KinectHandTracking
                                 break;
                         }
 
-                        tblRightHandState.Text = rightHandState;
-                        tblLeftHandState.Text = leftHandState;
-
                         Point rightHandPosition = handRight.Scale(_sensor.CoordinateMapper);
                         Point leftHandPosition = handLeft.Scale(_sensor.CoordinateMapper);
 
-                        tblRightHandPosition.Text = Math.Floor(rightHandPosition.X).ToString() + ", " + Math.Floor(rightHandPosition.Y).ToString();
-                        tblLeftHandPosition.Text = Math.Floor(leftHandPosition.X).ToString() + ", " + Math.Floor(leftHandPosition.Y).ToString();
+                        // Draw hand state
+                        canvas.DrawText(rightHandState, TextAlignment.Left, Colors.White, Colors.Black, 30, (int)Math.Floor(rightHandPosition.X) + 50, null, (int)Math.Floor(rightHandPosition.Y) - 50);
+                        canvas.DrawText(leftHandState, TextAlignment.Left, Colors.White, Colors.Black, 30, (int)Math.Floor(leftHandPosition.X) + 50, null, (int)Math.Floor(leftHandPosition.Y) - 50);
 
-                        tblHandDistance.Text = Math.Floor((rightHandPosition.X - leftHandPosition.X)).ToString() + ", " + Math.Floor((rightHandPosition.Y - leftHandPosition.Y)).ToString();
-                        tblHandBothStatus.Text = body.HandLeftState == HandState.Closed && body.HandRightState == HandState.Closed ? "Wheel" : "None";
+                        // Draw hand position
+                        canvas.DrawText(Math.Floor(rightHandPosition.X).ToString() + ", " + Math.Floor(rightHandPosition.Y).ToString(), TextAlignment.Left, Colors.White, Colors.Black, 25, (int)Math.Floor(rightHandPosition.X) + 50, null, (int)Math.Floor(rightHandPosition.Y + 10));
+                        canvas.DrawText(Math.Floor(leftHandPosition.X).ToString() + ", " + Math.Floor(leftHandPosition.Y).ToString(), TextAlignment.Right, Colors.White, Colors.Black, 25, (int)Math.Floor(leftHandPosition.X) + 50, null, (int)Math.Floor(leftHandPosition.Y) + 10);
                     }
                 }
             }

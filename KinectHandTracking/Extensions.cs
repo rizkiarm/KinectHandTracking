@@ -272,16 +272,21 @@ namespace KinectHandTracking
             canvas.Children.Add(rectangle);
         }
 
-        public static void DrawText(this Canvas canvas, string text, Color color, int left, int top, int FontSize = 12)
+        public static void DrawText(this Canvas canvas, string text, TextAlignment align, Color foreground, Color background, int FontSize = 15, int? left = null, int? right = null, int? top = null, int? bottom = null)
         {
             TextBlock textblock = new TextBlock();
 
             textblock.Text = text;
             textblock.FontSize = FontSize;
-            textblock.Foreground = new SolidColorBrush(color);
+            textblock.Foreground = new SolidColorBrush(foreground);
+            textblock.Background = new SolidColorBrush(background);
+            textblock.TextAlignment = align;
+            textblock.Padding = new Thickness(10, 5, 10, 5);
 
-            Canvas.SetLeft(textblock, left);
-            Canvas.SetTop(textblock, top);
+            if (left != null) Canvas.SetLeft(textblock, (double)left);
+            if (right != null) Canvas.SetRight(textblock, (double)right);
+            if (top != null) Canvas.SetTop(textblock, (double)top);
+            if (bottom != null) Canvas.SetBottom(textblock, (double)bottom);
 
             canvas.Children.Add(textblock);
         }
