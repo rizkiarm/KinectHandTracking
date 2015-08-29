@@ -81,7 +81,7 @@ namespace KinectHandTracking
             {
                 if (frame != null)
                 {
-                    if (showColorCamera.IsChecked.Value)
+                    if (showColorCamera.IsChecked)
                     {
                         long milliseconds = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
                         if (milliseconds - lastTimeRendered > 1000 / CAMERA_FRAMERATE)
@@ -125,7 +125,7 @@ namespace KinectHandTracking
 
                         // Process Facial Data if Enabled
                         FaceFrameResult face = null;
-                        if (processFacialData.IsChecked.Value)
+                        if (processFacialData.IsChecked)
                         {
                             // Facial state handler
                             if (!facialState.ContainsKey(body.TrackingId))
@@ -149,7 +149,7 @@ namespace KinectHandTracking
                                     PointF mouthRightPointF = face.FacePointsInColorSpace[FacePointType.MouthCornerRight];
 
                                     // Draw Face Point
-                                    if (drawFacePoint.IsChecked.Value)
+                                    if (drawFacePoint.IsChecked)
                                     {
                                         foreach (var item in face.FacePointsInColorSpace.Keys)
                                         {
@@ -168,7 +168,7 @@ namespace KinectHandTracking
                                     DetectionResult wearingGlasses = face.FaceProperties[FaceProperty.WearingGlasses];
 
                                     // Show Face Property
-                                    if (showFaceProperty.IsChecked.Value)
+                                    if (showFaceProperty.IsChecked)
                                     {
                                         canvas.DrawRectl(facePosition, currentBodyColor);
                                         canvas.DrawText(
@@ -209,12 +209,12 @@ namespace KinectHandTracking
                         canvas.DrawThumb(thumbLeft, _sensor.CoordinateMapper, handLeftColor);
 
                         // Draw skeleton
-                        if (showSkeleton.IsChecked.Value) canvas.DrawSkeleton(body, _sensor.CoordinateMapper, currentBodyColor);
+                        if (showSkeleton.IsChecked) canvas.DrawSkeleton(body, _sensor.CoordinateMapper, currentBodyColor);
 
                         // Draw body index
 
                         // Affect cursor
-                        if (nearestBody == body && enableControl.IsChecked.Value) body.AffectOutsideWorld(face, _sensor.CoordinateMapper);
+                        if (nearestBody == body && enableControl.IsChecked) body.AffectOutsideWorld(face, _sensor.CoordinateMapper);
 
                         // Draw player
                         if (nearestBody == body) canvas.DrawText("ACTIVE", TextAlignment.Left, Colors.White, Colors.Green, 30, (int)Math.Floor(body.Joints[JointType.Head].Scale(_sensor.CoordinateMapper).X) - 60, null, (int)Math.Floor(body.Joints[JointType.Head].Scale(_sensor.CoordinateMapper).Y) - 150);
