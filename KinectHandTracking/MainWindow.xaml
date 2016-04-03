@@ -12,7 +12,7 @@
 
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" >
             <TextBlock Foreground="White" Background="#CC000000" FontSize="20" Padding="15,8"><Run FontWeight="DemiBold">Kinect 2.0</Run> Interaction</TextBlock>
-            <TextBlock HorizontalAlignment="Left" Foreground="Black" Background="#CCFFFFFF" FontSize="12" Padding="15,5">Developed by <Bold>ARM</Bold></TextBlock>
+            <TextBlock HorizontalAlignment="Left" Foreground="Black" Background="#CCFFFFFF" FontSize="12" Padding="15,5">Developed by <Bold>RizkiARM</Bold></TextBlock>
         </StackPanel>
 
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Margin="10" >
