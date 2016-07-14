@@ -23,4 +23,4 @@ To build from source, clone this repository, and then open ``KinectHandTracking.
 
 License
 --------
-Multi Account Tweet Manager is licensed under [MIT License](https://github.com/rizkiarm/KinectHandTracking/blob/master/LICENSE).
+Kinect Hand Tracking is licensed under [MIT License](https://github.com/rizkiarm/KinectHandTracking/blob/master/LICENSE).
